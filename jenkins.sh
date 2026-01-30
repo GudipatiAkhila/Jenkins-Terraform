@@ -29,3 +29,11 @@ sudo systemctl start jenkins
 
 
 
+# After logging to Jenkins
+1 . Install plugins 
+2 . Add Credentials - settings-> Manage Jenkins -> Credentials 
+3.  Add Node - ettings-> Manage Jenkins -> Node 
+ 
+
+
+
