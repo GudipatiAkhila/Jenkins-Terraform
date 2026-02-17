@@ -77,7 +77,7 @@ resource "aws_instance" "jenkins_agent" {
   ami           = "ami-0220d79f3f480ecf5"
   instance_type = "t3.small"
   security_groups = [aws_security_group.jenkins_sg.name]
-  user_data = file("jenkins.sh")
+  user_data = file("jenkins-agent.sh")
   root_block_device {
     volume_size = 50
     volume_type = "gp3"
@@ -90,4 +90,20 @@ resource "aws_instance" "jenkins_agent" {
   tags = {
     Name = "jenkins-agent"
   }
+}
+
+resource "aws_route53_record" "jenkins" {
+  zone_id = "Z0414495VY54E2FDUFF2"
+  name    = "jenkins.daws86s.website"
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.jenkins.public_ip]
+}
+
+resource "aws_route53_record" "jenkins_agent" {
+  zone_id = "Z0414495VY54E2FDUFF2"
+  name    = "jenkins_agent.daws86s.website"
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.jenkins_agent.public_ip]
 }
